@@ -27,7 +27,7 @@ public class Person {
     private String surname;
 
     @Column(name = "email")
-    private Email email;
+    private String email;
 
     @Column (name = "age")
     private Integer age;
@@ -36,5 +36,5 @@ public class Person {
     private Boolean isAuthor;
 
     @Column (name ="phone")
-    private String mobile;
+    private String phone;
 }

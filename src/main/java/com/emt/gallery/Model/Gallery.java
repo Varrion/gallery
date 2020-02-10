@@ -7,6 +7,7 @@ import lombok.NoArgsConstructor;
 import lombok.Setter;
 
 import javax.persistence.*;
+import java.util.List;
 
 @Getter
 @Setter
@@ -30,5 +31,5 @@ public class Gallery {
     private String phone;
 
     @OneToMany
-    private Picture pictures;
+    private List<Picture> pictures;
 }

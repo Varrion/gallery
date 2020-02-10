@@ -33,4 +33,16 @@ public class Picture {
 
     @Column
     private Integer price;
+
+    @Lob
+    private byte[] data;
+
+    @Column
+    private String imageType;
+
+    public Picture(String name, String imageType, byte[] data) {
+        this.name = name;
+        this.imageType = imageType;
+        this.data = data;
+    }
 }

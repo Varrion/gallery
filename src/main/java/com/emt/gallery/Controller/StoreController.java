@@ -5,6 +5,8 @@ import com.emt.gallery.Service.StoreService;
 import com.sun.org.apache.bcel.internal.generic.FSTORE;
 import org.springframework.web.bind.annotation.*;
 
+
+@CrossOrigin(origins = "*", allowedHeaders = "*")
 @RestController
 @RequestMapping("/api/store")
 public class StoreController {
