@@ -9,7 +9,7 @@ import java.util.Optional;
 
 @CrossOrigin(origins = "*", allowedHeaders = "*")
 @RestController
-@RequestMapping ("/api/person")
+@RequestMapping (value = "/api/person", method={RequestMethod.GET, RequestMethod.POST})
 public class PersonController {
 
     private final PersonService personService;

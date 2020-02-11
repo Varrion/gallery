@@ -1,30 +1,81 @@
-import React from "react";
-import {Button, Form} from "react-bootstrap";
+import React, {useState} from "react";
+import {Button, Form, Jumbotron} from "react-bootstrap";
+import {registerUser} from "../services/userApi";
+import {navigate} from "@reach/router";
 
 function RegisterPage() {
+
+    const [registerValues, setRegisterValues] = useState({
+        name: '',
+        surname: '',
+        phone: '',
+        age: null,
+        email: '',
+        isAuthor: false
+    });
+
+    const [error, setError] = useState(false);
+
+    const handleChange = name => event => {
+        setRegisterValues({...registerValues, [name]: event.target.value});
+    };
+
+    const handleSubmit = event => {
+        event.preventDefault();
+
+        if (registerValues.password === registerValues.confirmPassword) {
+            registerUser(registerValues)
+                .then(res => console.log(res))
+                .catch(err => console.log(err))
+            navigate('/login')
+
+        } else setError(true)
+    };
+
+
     return (
         <div>
-            <Form>
-                <Form.Group controlId="formBasicEmail">
-                    <Form.Label>Email address</Form.Label>
-                    <Form.Control type="email" placeholder="Enter email" />
-                    <Form.Text className="text-muted">
-                        We'll never share your email with anyone else.
-                    </Form.Text>
-                </Form.Group>
+            <Jumbotron>
+                <Form onSubmit={handleSubmit}>
+                    <Form.Group controlId="formBasicEmail">
+                        <Form.Label>Name</Form.Label>
+                        <Form.Control type="text" placeholder="Your name" value={registerValues.name}
+                                      onChange={handleChange("name")}/>
+                    </Form.Group>
 
-                <Form.Group controlId="formBasicPassword">
-                    <Form.Label>Password</Form.Label>
-                    <Form.Control type="password" placeholder="Password" />
-                </Form.Group>
-                <Form.Group controlId="formBasicCheckbox">
-                    <Form.Check type="checkbox" label="Check me out" />
-                </Form.Group>
-                <Button variant="primary" type="submit">
-                    Submit
-                </Button>
-            </Form>
+                    <Form.Group controlId="formBasicEmail">
+                        <Form.Label>Surname</Form.Label>
+                        <Form.Control type="text" placeholder="Your surname" value={registerValues.surname}
+                                      onChange={handleChange("surname")}/>
+                    </Form.Group>
 
+                    <Form.Group controlId="formBasicPassword">
+                        <Form.Label>Email</Form.Label>
+                        <Form.Control type="text" placeholder="Your email address" value={registerValues.email}
+                                      onChange={handleChange("email")}/>
+                    </Form.Group>
+
+                    <Form.Group controlId="formBasicPassword">
+                        <Form.Label>Age</Form.Label>
+                        <Form.Control type="number" placeholder="Enter your age" value={registerValues.age}
+                                      onChange={handleChange("age")}/>
+                    </Form.Group>
+
+                    <Form.Group controlId="formBasicPassword">
+                        <Form.Label>Phone</Form.Label>
+                        <Form.Control type="text" placeholder="Enter your phone number" value={registerValues.phone}
+                                      onChange={handleChange("phone")}/>
+                    </Form.Group>
+
+                    <Form.Group controlId="formBasicCheckbox">
+                        <Form.Check type="checkbox" label="Are you an Author?" value={registerValues.isAuthor}
+                                    onChange={handleChange("isAuthor")}/>
+                    </Form.Group>
+                    <Button variant="primary" type="submit">
+                        Register
+                    </Button>
+                </Form>
+            </Jumbotron>
         </div>
     )
 }
