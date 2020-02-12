@@ -1,6 +1,8 @@
 package com.emt.gallery.Service;
 
+import com.emt.gallery.Model.Dto.PictureDto;
 import com.emt.gallery.Model.Picture;
+import com.emt.gallery.Repository.PersonRepository;
 import com.emt.gallery.Repository.PictureRepository;
 import org.apache.tomcat.util.http.fileupload.FileUploadException;
 import org.springframework.stereotype.Service;
@@ -9,16 +11,18 @@ import org.springframework.web.multipart.MultipartFile;
 
 import java.io.IOException;
 import java.util.List;
-import java.util.Optional;
 
 @Service
 public class PictureService {
 
     private final PictureRepository pictureRepository;
+    private final PersonRepository personRepository;
 
-    public PictureService(PictureRepository pictureRepository) {
+
+    public PictureService(PictureRepository pictureRepository, PersonRepository personRepository) {
 
         this.pictureRepository = pictureRepository;
+        this.personRepository = personRepository;
     }
 
     public List<Picture> getAllPictures() {
@@ -33,7 +37,7 @@ public class PictureService {
         return pictureRepository.save(picture);
     }
 
-    public Picture storePicture(MultipartFile file) throws FileUploadException {
+    public Picture storePicture(MultipartFile file, PictureDto pictureData) throws FileUploadException {
         // Normalize file name
         String fileName = StringUtils.cleanPath(file.getOriginalFilename());
 
@@ -43,13 +47,15 @@ public class PictureService {
                 throw new FileUploadException("Sorry! Filename contains invalid path sequence " + fileName);
             }
 
-            Picture picture = new Picture(fileName, file.getContentType(), file.getBytes());
+            Picture picture = new Picture(fileName, file.getContentType(), file.getBytes(), pictureData.getDescription());
 
             return pictureRepository.save(picture);
         } catch (IOException | FileUploadException ex) {
             throw new FileUploadException("Could not store file " + fileName + ". Please try again!", ex);
         }
     }
+
+    // pictureData.getDescription(), pictureData.getAuthor(), pictureData.getQuantity(), pictureData.getPrice()
 
     public Picture updatePicture(Picture picture) {
         Picture p = getPicture(picture.getId());

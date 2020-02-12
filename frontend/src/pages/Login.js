@@ -1,11 +1,11 @@
 import React, {useEffect} from "react";
-import {getAllusers} from "../services/userApi";
+import {getAllUsers} from "../services/userApi";
 import {Button, Form, Jumbotron} from "react-bootstrap";
 
 function LoginPage() {
 
     useEffect(() => {
-        getAllusers().then(
+        getAllUsers().then(
             res => console.log(res)
         );
     }, []);

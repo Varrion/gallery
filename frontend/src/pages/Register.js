@@ -17,7 +17,10 @@ function RegisterPage() {
     const [error, setError] = useState(false);
 
     const handleChange = name => event => {
-        setRegisterValues({...registerValues, [name]: event.target.value});
+        if (name !== "isAuthor") {
+            setRegisterValues({...registerValues, [name]: event.target.value});
+        }
+        setRegisterValues({...registerValues, [name]: event.target.checked});
     };
 
     const handleSubmit = event => {

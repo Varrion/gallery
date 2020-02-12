@@ -4,9 +4,7 @@ import lombok.AllArgsConstructor;
 import lombok.Getter;
 import lombok.NoArgsConstructor;
 import lombok.Setter;
-
 import javax.persistence.*;
-import javax.validation.constraints.Email;
 
 @Getter
 @Setter
@@ -29,7 +27,6 @@ public class Person {
     @Column(name = "email")
     private String email;
 
-    @Column
     private String password;
 
     @Column (name = "age")

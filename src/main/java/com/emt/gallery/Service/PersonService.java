@@ -16,6 +16,10 @@ public class PersonService {
         this.personRepository = personRepository;
     }
 
+    public Person getPersonByHisName(String name) {
+        return personRepository.findByName(name);
+    }
+
     public List<Person> getAllPersons(){
         return personRepository.findAll();
     }

@@ -1,6 +1,6 @@
 import axios from 'axios'
 
-async function getAllusers() {
+async function getAllUsers() {
     return axios.get('http://localhost:8080/api/person').then(res => res.data)
 }
 
@@ -14,4 +14,4 @@ async function registerUser(person) {
 
 }
 
-export {getAllusers, registerUser}
+export {getAllUsers, registerUser}

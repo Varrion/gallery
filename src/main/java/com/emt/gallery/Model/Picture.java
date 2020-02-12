@@ -23,6 +23,13 @@ public class Picture {
     private String name;
 
     @Column
+    private String imageType;
+
+    @Lob
+    private byte[] data;
+
+
+    @Column
     private String description;
 
     @ManyToOne
@@ -34,15 +41,20 @@ public class Picture {
     @Column
     private Integer price;
 
-    @Lob
-    private byte[] data;
-
-    @Column
-    private String imageType;
-
-    public Picture(String name, String imageType, byte[] data) {
+    public Picture(String name, String imageType, byte[] data, String description) {
         this.name = name;
         this.imageType = imageType;
         this.data = data;
+        this.description = description;
+    }
+
+    public Picture(String fileName, String contentType, byte[] bytes, String description, Person author, Integer quantity, Integer price) {
+        this.name = fileName;
+        this.imageType = contentType;
+        this.data = bytes;
+        this.description = description;
+        this.author = author;
+        this.quantity = quantity;
+        this.price = price;
     }
 }
