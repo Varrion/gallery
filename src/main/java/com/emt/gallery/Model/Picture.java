@@ -48,7 +48,7 @@ public class Picture {
         this.description = description;
     }
 
-    public Picture(String fileName, String contentType, byte[] bytes, String description, Person author, Integer quantity, Integer price) {
+    public Picture(String fileName, String contentType, byte[] bytes, String description, Integer quantity, Integer price, Person author) {
         this.name = fileName;
         this.imageType = contentType;
         this.data = bytes;

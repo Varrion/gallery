@@ -37,7 +37,7 @@ public class PictureService {
         return pictureRepository.save(picture);
     }
 
-    public Picture storePicture(MultipartFile file, PictureDto pictureData) throws FileUploadException {
+    public Picture storePicture(MultipartFile file, PictureDto pictureDto) throws FileUploadException {
         // Normalize file name
         String fileName = StringUtils.cleanPath(file.getOriginalFilename());
 
@@ -47,7 +47,7 @@ public class PictureService {
                 throw new FileUploadException("Sorry! Filename contains invalid path sequence " + fileName);
             }
 
-            Picture picture = new Picture(fileName, file.getContentType(), file.getBytes(), pictureData.getDescription());
+            Picture picture = new Picture(fileName, file.getContentType(), file.getBytes(), pictureDto.getDescription(), pictureDto.getQuantity(), pictureDto.getPrice(), personRepository.findByName(pictureDto.getAuthor()));
 
             return pictureRepository.save(picture);
         } catch (IOException | FileUploadException ex) {

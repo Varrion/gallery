@@ -44,12 +44,9 @@ public class PictureController {
                 .body(new ByteArrayResource(dbFile.getData()));
     }
 
-    @PostMapping(value = "/upload",
-            consumes = MediaType.APPLICATION_JSON_VALUE,
-            produces = MediaType.APPLICATION_JSON_VALUE)
-    @ResponseBody
-    public Picture upload(@RequestParam("picture") MultipartFile picture, @RequestBody PictureDto pictureData) throws FileUploadException {
-        return pictureService.storePicture(picture, pictureData);
+    @PostMapping(value = "/upload")
+    public Picture upload(@RequestParam("picture") MultipartFile picture, @RequestPart("pictureData") PictureDto pictureDto) throws FileUploadException {
+        return pictureService.storePicture(picture, pictureDto);
     }
 
     @PostMapping("/update/{id}")

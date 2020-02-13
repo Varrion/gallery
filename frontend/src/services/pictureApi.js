@@ -2,11 +2,11 @@ import axios from 'axios'
 
 async function uploadImage(photo) {
     return axios.post(`http://localhost:8080/api/picture/upload`, photo,
-        {
-            headers: {
-                'content-type': 'multipart/form-data'
-            }
-        }
+        // {
+        //     headers: {
+        //         'content-type': 'application/json'
+        //     }
+        // }
     ).then(res => {
         console.log("Test test", res);
         return res;

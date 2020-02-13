@@ -11,7 +11,7 @@ export function UploadPictures() {
         quantity: 0,
         price: 0,
     });
-    const [photoData, setPhotoData] = useState(null);
+    const [photoData, setPhotoData] = useState(null); // file
     const [authors, setAuthors] = useState(null);
 
     useEffect(() => {
@@ -35,12 +35,12 @@ export function UploadPictures() {
     const uploadFile = event => {
         event.preventDefault();
 
-        let file = photoData;
-        console.log(file);
-        console.log(photo);
         let formData = new FormData();
-        formData.append("picture", file);
-        formData.append("pictureData", photo);
+        console.log("photo: ", {...photo});
+        formData.append("picture", photoData);
+        formData.append('pictureData', new Blob([JSON.stringify({...photo})], {
+            type: "application/json"
+        }));
         uploadImage(formData).then(res => res);
     };
 
