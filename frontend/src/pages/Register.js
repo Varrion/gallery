@@ -27,18 +27,17 @@ function RegisterPage() {
     const handleSubmit = event => {
         event.preventDefault();
 
-        if (registerValues.password === "test") {
-            registerUser(registerValues)
-                .then(() => getAllUsers().then(() => navigate('/login')))
-                .catch(err => console.log(err))
+        registerUser(registerValues)
+            .then(() => getAllUsers().then(() => navigate('/login')))
+            .catch(err => console.log(err))
 
-        } else setError(true)
     };
 
 
     return (
         <div>
             <Jumbotron>
+                <h2>Register</h2>
                 <Form onSubmit={handleSubmit}>
                     <Form.Group>
                         <Form.Label>Name</Form.Label>

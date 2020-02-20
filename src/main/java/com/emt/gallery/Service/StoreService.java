@@ -68,6 +68,16 @@ public class StoreService {
         return storeRepository.save(newStore);
     }
 
+    public void deleteStoreByUserId(Integer userId) {
+
+        List<Store> stores = getStoreByUser(userId);
+
+        for (Store store : stores) {
+            storeRepository.delete(store);
+        }
+
+    }
+
     public Store editStore(Store store) {
         Store s = getStore(store.getId());
 
@@ -75,10 +85,6 @@ public class StoreService {
         s.setPicture(store.getPicture());
 
         return storeRepository.save(s);
-    }
-
-    private void deleteFromStore() {
-
     }
 
     private Picture DtoToEntity(PictureDto pictureDto) {

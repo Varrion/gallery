@@ -15,4 +15,13 @@ async function getCartDetails(userId) {
         .then(res => res.data);
 }
 
-export {addToCart, getCartDetails}
+async function deleteCartForUser(userId) {
+    return axios.delete(`http://localhost:8080/api/store/delete/${userId}`).then(res => console.log(res))
+}
+
+async function editPicturesInStore(storeId) {
+    return  axios.post(`http://localhost:8080/api/store/${storeId}`)
+
+}
+
+export {addToCart, getCartDetails, deleteCartForUser}

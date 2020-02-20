@@ -21,7 +21,7 @@ public class StoreController {
     }
 
     @GetMapping("/{id}")
-     public Store getOne(@PathVariable Integer id){
+    public Store getOne(@PathVariable Integer id) {
         return storeService.getStore(id);
     }
 
@@ -35,12 +35,14 @@ public class StoreController {
         return storeService.insertInStore(picture);
     }
 
-    @PostMapping("/edit/{id}")
-    public Store edit(@PathVariable Integer id, @RequestBody Store store) {
+    @PostMapping("/edit")
+    public Store edit(@RequestBody Store store) {
         return storeService.editStore(store);
-
     }
 
-
+    @DeleteMapping("/delete/{userId}")
+    public void deleteStoreByUser(@PathVariable Integer userId) {
+        storeService.deleteStoreByUserId(userId);
+    }
 }
 

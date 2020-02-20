@@ -26,8 +26,13 @@ async function fetchImageData(id) {
 async function getAllImages() {
     return axios.get(`http://localhost:8080/api/picture/`)
         .then(res => res.data);
+}
+
+async function deletePictureById(pictureId) {
+    return axios.delete(`http://localhost:8080/api/picture/delete/${pictureId}`)
+        .then(res => console.log(res))
 
 }
 
 
-export {uploadImage, fetchImage, fetchImageData, getAllImages}
+export {uploadImage, fetchImage, fetchImageData, getAllImages, deletePictureById}

@@ -13,6 +13,7 @@ function LoginPage() {
     return (
         <div>
             <Jumbotron>
+                <h2>Login</h2>
                 <Form>
                     <Form.Group controlId="formBasicEmail">
                         <Form.Label>Email address</Form.Label>

@@ -11,4 +11,6 @@ import java.util.List;
 public interface StoreRepository extends JpaRepository<Store, Integer> {
 
     List<Store> findByPersonId(Integer personId);
+
+    void deleteByPersonId(Store store);
 }

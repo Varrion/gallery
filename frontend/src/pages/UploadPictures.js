@@ -2,6 +2,7 @@ import React, {useEffect, useState} from "react";
 import {Button, Form, Jumbotron} from "react-bootstrap";
 import {uploadImage} from "../services/pictureApi";
 import {getAllUsers} from "../services/userApi";
+import {navigate} from "@reach/router";
 
 export function UploadPictures() {
 
@@ -40,14 +41,15 @@ export function UploadPictures() {
         formData.append('pictureData', new Blob([JSON.stringify({...photo})], {
             type: "application/json"
         }));
-        uploadImage(formData).then(res => res);
+        uploadImage(formData).then(res => navigate('/pictures-buy'));
     };
 
 
     return (
         <div>
             <Jumbotron>
-                <Form onSubmit={uploadFile}>
+                <h1> Upload Picture </h1>
+                <Form onSubmit={uploadFile} className="mt-2">
                     <Form.Group controlId="formBasicEmail">
                         <Form.Label>Description</Form.Label>
                         <Form.Control as="textarea" rows="4" placeholder="Description"
