@@ -1,9 +1,12 @@
 package com.emt.gallery.Controller;
 
+import com.emt.gallery.Model.Dto.PictureDto;
+import com.emt.gallery.Model.Picture;
 import com.emt.gallery.Model.Store;
 import com.emt.gallery.Service.StoreService;
-import com.sun.org.apache.bcel.internal.generic.FSTORE;
 import org.springframework.web.bind.annotation.*;
+
+import java.util.List;
 
 
 @CrossOrigin(origins = "*", allowedHeaders = "*")
@@ -22,9 +25,14 @@ public class StoreController {
         return storeService.getStore(id);
     }
 
+    @GetMapping("/user/{userId}")
+    public List<Store> getStoresByUserId(@PathVariable Integer userId) {
+        return storeService.getStoreByUser(userId);
+    }
+
     @PostMapping("/save")
-    public Store save(@RequestBody Store store) {
-        return storeService.saveStore(store);
+    public Store save(@RequestBody PictureDto picture) {
+        return storeService.insertInStore(picture);
     }
 
     @PostMapping("/edit/{id}")

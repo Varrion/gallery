@@ -1,9 +1,12 @@
 package com.emt.gallery.Service;
 
 import com.emt.gallery.Model.Dto.PictureDto;
+import com.emt.gallery.Model.Person;
 import com.emt.gallery.Model.Picture;
+import com.emt.gallery.Model.Store;
 import com.emt.gallery.Repository.PersonRepository;
 import com.emt.gallery.Repository.PictureRepository;
+import com.emt.gallery.Repository.StoreRepository;
 import org.apache.tomcat.util.http.fileupload.FileUploadException;
 import org.springframework.stereotype.Service;
 import org.springframework.util.StringUtils;
@@ -17,12 +20,14 @@ public class PictureService {
 
     private final PictureRepository pictureRepository;
     private final PersonRepository personRepository;
+    private final StoreRepository storeRepository;
 
 
-    public PictureService(PictureRepository pictureRepository, PersonRepository personRepository) {
+    public PictureService(PictureRepository pictureRepository, PersonRepository personRepository, StoreRepository storeRepository) {
 
         this.pictureRepository = pictureRepository;
         this.personRepository = personRepository;
+        this.storeRepository = storeRepository;
     }
 
     public List<Picture> getAllPictures() {
@@ -54,9 +59,6 @@ public class PictureService {
             throw new FileUploadException("Could not store file " + fileName + ". Please try again!", ex);
         }
     }
-
-    // pictureData.getDescription(), pictureData.getAuthor(), pictureData.getQuantity(), pictureData.getPrice()
-
     public Picture updatePicture(Picture picture) {
         Picture p = getPicture(picture.getId());
         p.setDescription(picture.getDescription());
@@ -69,5 +71,18 @@ public class PictureService {
 
     public void deletePicture(Integer id) {
         pictureRepository.deleteById(id);
+    }
+
+    public PictureDto getPictureDto(Picture picture) {
+        PictureDto pictureDto = new PictureDto();
+
+        pictureDto.setId(picture.getId());
+        pictureDto.setAuthor(picture.getAuthor().getName());
+        pictureDto.setDescription(picture.getDescription());
+        pictureDto.setPrice(picture.getPrice());
+        pictureDto.setQuantity(picture.getQuantity());
+        pictureDto.setName(picture.getName());
+
+        return pictureDto;
     }
 }

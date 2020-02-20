@@ -6,10 +6,7 @@ async function getAllUsers() {
 
 async function registerUser(person) {
     return axios.post(`http://localhost:8080/api/person/save`, person)
-        .then(res => {
-            console.log(res);
-            return res
-        })
+        .then(res => res)
         .catch(err => console.log(err))
 
 }

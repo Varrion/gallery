@@ -28,25 +28,20 @@ public class Picture {
     @Lob
     private byte[] data;
 
-
     @Column
     private String description;
 
     @ManyToOne
     private Person author;
 
+    @ManyToOne
+    private Store store;
+
     @Column
     private Integer quantity;
 
     @Column
     private Integer price;
-
-    public Picture(String name, String imageType, byte[] data, String description) {
-        this.name = name;
-        this.imageType = imageType;
-        this.data = data;
-        this.description = description;
-    }
 
     public Picture(String fileName, String contentType, byte[] bytes, String description, Integer quantity, Integer price, Person author) {
         this.name = fileName;

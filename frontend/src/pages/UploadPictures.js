@@ -1,8 +1,7 @@
-import React, {useState, useEffect} from "react";
+import React, {useEffect, useState} from "react";
 import {Button, Form, Jumbotron} from "react-bootstrap";
-import {fetchImage, uploadImage} from "../services/pictureApi";
-import {getAllUsers, registerUser} from "../services/userApi";
-import {navigate} from "@reach/router";
+import {uploadImage} from "../services/pictureApi";
+import {getAllUsers} from "../services/userApi";
 
 export function UploadPictures() {
 

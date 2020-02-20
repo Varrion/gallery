@@ -1,23 +1,15 @@
 import axios from 'axios'
 
 async function uploadImage(photo) {
-    return axios.post(`http://localhost:8080/api/picture/upload`, photo,
-        // {
-        //     headers: {
-        //         'content-type': 'application/json'
-        //     }
-        // }
-    ).then(res => {
-        console.log("Test test", res);
+    return axios.post(`http://localhost:8080/api/picture/upload`, photo).then(res => {
         return res;
     })
 }
 
 
-
 async function fetchImage(id) {
-    return axios.get(`http://localhost:8080/api/picture/${id}`, { responseType: 'arraybuffer' })
-        .then((response) => {
+    return axios.get(`http://localhost:8080/api/picture/${id}`, {responseType: "arraybuffer"})
+        .then(response => {
             let image = btoa(
                 new Uint8Array(response.data)
                     .reduce((data, byte) => data + String.fromCharCode(byte), '')
@@ -26,11 +18,16 @@ async function fetchImage(id) {
         });
 }
 
+async function fetchImageData(id) {
+    return axios.get(`http://localhost:8080/api/picture/${id}/data`)
+        .then(response => response.data);
+}
+
 async function getAllImages() {
     return axios.get(`http://localhost:8080/api/picture/`)
         .then(res => res.data);
-    
+
 }
 
 
-export {uploadImage, fetchImage, getAllImages}
+export {uploadImage, fetchImage, fetchImageData, getAllImages}

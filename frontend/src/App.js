@@ -7,6 +7,9 @@ import RegisterPage from "./pages/Register";
 import Dashboard from "./pages/Dashboard";
 import {Header} from "./components/Header";
 import {UploadPictures} from "./pages/UploadPictures";
+import {BuyImages} from "./pages/BuyImages";
+import PictureDetails from "./pages/PictureDetails";
+import {Cart} from "./pages/Cart";
 
 function App() {
   return (
@@ -20,6 +23,9 @@ function App() {
                     <RegisterPage path="/register"/>
                     <LoginPage path="/login"/>
                     <UploadPictures path="/pictures-upload"/>
+                    <BuyImages path="/pictures-buy"/>
+                    <PictureDetails path="/picture/:pictureId"/>
+                    <Cart path="/my-cart"/>
                 </Router>
             </LocationProvider>
         </div>

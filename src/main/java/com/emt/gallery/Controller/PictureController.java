@@ -3,7 +3,6 @@ package com.emt.gallery.Controller;
 import com.emt.gallery.Model.Dto.PictureDto;
 import com.emt.gallery.Model.Picture;
 import com.emt.gallery.Service.PictureService;
-import lombok.var;
 import org.apache.tomcat.util.http.fileupload.FileUploadException;
 import org.springframework.core.io.ByteArrayResource;
 import org.springframework.core.io.Resource;
@@ -13,10 +12,7 @@ import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 import org.springframework.web.multipart.MultipartFile;
 
-import javax.validation.Valid;
-import java.util.ArrayList;
 import java.util.List;
-import java.util.Optional;
 
 @CrossOrigin(origins = "*", allowedHeaders = "*")
 @RestController
@@ -35,13 +31,20 @@ public class PictureController {
     }
 
     @GetMapping("/{fileId}")
-    public ResponseEntity<Resource> downloadFile(@PathVariable Integer fileId) {
+    public ResponseEntity<Resource> fetchPicture(@PathVariable Integer fileId) {
         Picture dbFile = pictureService.getPicture(fileId);
 
         return ResponseEntity.ok()
                 .contentType(MediaType.parseMediaType(dbFile.getImageType()))
                 .header(HttpHeaders.CONTENT_DISPOSITION, "attachment; filename=\"" + dbFile.getName() + "\"")
                 .body(new ByteArrayResource(dbFile.getData()));
+    }
+
+    @GetMapping("/{fileId}/data")
+    public PictureDto fetchPictureData(@PathVariable Integer fileId) {
+        Picture dbFile = pictureService.getPicture(fileId);
+
+        return pictureService.getPictureDto(dbFile);
     }
 
     @PostMapping(value = "/upload")
@@ -58,7 +61,6 @@ public class PictureController {
     public void delete(@PathVariable Integer id) {
         pictureService.deletePicture(id);
     }
-
 
 
 }

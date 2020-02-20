@@ -10,6 +10,7 @@ import lombok.NoArgsConstructor;
 @AllArgsConstructor
 @NoArgsConstructor
 public class PictureDto {
+    private Integer id;
 
     private String description;
 
@@ -18,4 +19,6 @@ public class PictureDto {
     private Integer price;
 
     private String author;
+
+    private String name;
 }

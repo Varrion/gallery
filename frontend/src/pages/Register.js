@@ -1,6 +1,6 @@
 import React, {useState} from "react";
 import {Button, Form, Jumbotron} from "react-bootstrap";
-import {registerUser} from "../services/userApi";
+import {getAllUsers, registerUser} from "../services/userApi";
 import {navigate} from "@reach/router";
 
 function RegisterPage() {
@@ -9,8 +9,9 @@ function RegisterPage() {
         name: '',
         surname: '',
         phone: '',
-        age: null,
+        age: 0,
         email: '',
+        password: '',
         isAuthor: false
     });
 
@@ -18,19 +19,18 @@ function RegisterPage() {
 
     const handleChange = name => event => {
         if (name !== "isAuthor") {
-            setRegisterValues({...registerValues, [name]: event.target.value});
+            return setRegisterValues({...registerValues, [name]: event.target.value});
         }
-        setRegisterValues({...registerValues, [name]: event.target.checked});
+        return setRegisterValues({...registerValues, [name]: event.target.checked});
     };
 
     const handleSubmit = event => {
         event.preventDefault();
 
-        if (registerValues.password === registerValues.confirmPassword) {
+        if (registerValues.password === "test") {
             registerUser(registerValues)
-                .then(res => console.log(res))
+                .then(() => getAllUsers().then(() => navigate('/login')))
                 .catch(err => console.log(err))
-            navigate('/login')
 
         } else setError(true)
     };
@@ -40,37 +40,43 @@ function RegisterPage() {
         <div>
             <Jumbotron>
                 <Form onSubmit={handleSubmit}>
-                    <Form.Group controlId="formBasicEmail">
+                    <Form.Group>
                         <Form.Label>Name</Form.Label>
                         <Form.Control type="text" placeholder="Your name" value={registerValues.name}
                                       onChange={handleChange("name")}/>
                     </Form.Group>
 
-                    <Form.Group controlId="formBasicEmail">
+                    <Form.Group>
                         <Form.Label>Surname</Form.Label>
                         <Form.Control type="text" placeholder="Your surname" value={registerValues.surname}
                                       onChange={handleChange("surname")}/>
                     </Form.Group>
 
-                    <Form.Group controlId="formBasicPassword">
+                    <Form.Group>
                         <Form.Label>Email</Form.Label>
                         <Form.Control type="text" placeholder="Your email address" value={registerValues.email}
                                       onChange={handleChange("email")}/>
                     </Form.Group>
 
-                    <Form.Group controlId="formBasicPassword">
+                    <Form.Group>
+                        <Form.Label>Password</Form.Label>
+                        <Form.Control type="password" placeholder="Enter your password" value={registerValues.password}
+                                      onChange={handleChange("password")}/>
+                    </Form.Group>
+
+                    <Form.Group>
                         <Form.Label>Age</Form.Label>
                         <Form.Control type="number" placeholder="Enter your age" value={registerValues.age}
                                       onChange={handleChange("age")}/>
                     </Form.Group>
 
-                    <Form.Group controlId="formBasicPassword">
+                    <Form.Group>
                         <Form.Label>Phone</Form.Label>
                         <Form.Control type="text" placeholder="Enter your phone number" value={registerValues.phone}
                                       onChange={handleChange("phone")}/>
                     </Form.Group>
 
-                    <Form.Group controlId="formBasicCheckbox">
+                    <Form.Group>
                         <Form.Check type="checkbox" label="Are you an Author?" value={registerValues.isAuthor}
                                     onChange={handleChange("isAuthor")}/>
                     </Form.Group>

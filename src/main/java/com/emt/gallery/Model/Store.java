@@ -23,7 +23,9 @@ public class Store {
     @OneToOne
     private Person person;
 
-    @OneToMany
-    private List<Picture> pictures;
+    @OneToOne
+    private Picture picture;
 
+    @Column(columnDefinition = "integer default 0")
+    private int numberOfPictures;
 }
